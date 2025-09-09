@@ -1,8 +1,8 @@
 
 const shortUrlSchema = require("../models/shorturl.model");
-const { nanoid } = require("nanoid/non-secure");
 
 async function createShortUrlService(url, userId, slug=null) {
+  const { nanoid }  = await import("nanoid")
     const shortUrl = slug || nanoid(10);
     console.log(userId)
     const newUrl = new shortUrlSchema({
