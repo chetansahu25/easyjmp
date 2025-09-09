@@ -1,0 +1,29 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+}
+
+.dark-theme {
+    --primary-color: #343a40;
+    --secondary-color: #f8f9fa;
+}
+
+.container-with-scroll {
+    /* This property forces the content onto a single line */
+    white-space: nowrap;
+
+    /* This property adds a horizontal scrollbar when content overflows the container */
+    overflow-x: auto;
+
+    /* Hide the vertical scrollbar if present */
+    overflow-y: hidden;
+
+    /* --- Rules to hide the scrollbar without disabling scrolling --- */
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.container-with-scroll::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Webkit browsers */
+}
