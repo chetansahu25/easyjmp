@@ -10,7 +10,7 @@ require('dotenv').config()
 
 const app = express()
 app.use(cors({
-    origin: "https://easyjmp-xdgv.vercel.app/",
+    origin: "https://easyjmp-xdgv.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
 }))
