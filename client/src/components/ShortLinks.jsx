@@ -123,7 +123,7 @@ const ShortLinks = () => {
                                     {link.shortUrl}
                                     <button
                                         className="ml-2 bg-gray-300 text-gray-800 px-2 py-3 rounded"
-                                        onClick={() => navigator.clipboard.writeText(link.shortUrl)}
+                                        onClick={() => navigator.clipboard.writeText(`${import.meta.env.VITE_BACKEND_URL}/${link.shortUrl}`)}
                                     >
                                         <Copy size={16} />
                                     </button>

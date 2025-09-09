@@ -44,7 +44,7 @@ const Dashboard = () => {
   }
 
   const handleShortUrlClick = (shortUrl) => {
-    navigator.clipboard.writeText(`http://localhost:3000/${shortUrl}`);
+    navigator.clipboard.writeText(`${import.meta.env.VITE_BACKEND_URL}/${shortUrl}`);
   }
 
   useEffect(() => {
@@ -95,7 +95,7 @@ const Dashboard = () => {
                     <tr key={index} className='text-center border-b hover:bg-gray-300 *:py-2 *:my-2'>
                       <td className=' break-all'>{url.originalUrl.slice(0, 30) + (url.originalUrl.length > 30 ? '...' : '')}</td>
                       <td className=' flex text-blue-500 hover:underline'>
-                        <button className='flex gap-3' onClick={() => handleShortUrlClick(url.shortUrl)}>{`http://localhost:3000/${url.shortUrl}`}<CopyIcon />
+                        <button className='flex gap-3' onClick={() => handleShortUrlClick(url.shortUrl)}>{`${import.meta.env.VITE_BACKEND_URL}/${url.shortUrl}`}<CopyIcon />
                         </button>
                       </td>
                       <td className='pr-10'>{url.clickCount}</td>
