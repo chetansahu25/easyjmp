@@ -14,20 +14,24 @@ async function handleRegisterUser(req, res) {
 
         res.cookie("refreshToken", refreshToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: "none",
+            secure: true, // cookie only sent over HTTPS (use false for localhost HTTP)
+            sameSite: "None", // allow cross-site cookies
+            domain: "https://easyjmp.onrender.com",
+            path: "/",
             maxAge: 30 * 24 * 60 * 60 * 1000,
         });
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: "none",
+            secure: true, // cookie only sent over HTTPS (use false for localhost HTTP)
+            sameSite: "None", // allow cross-site cookies
+            domain: "https://easyjmp.onrender.com",
+            path: "/",
             maxAge: 15 * 60 * 1000,
         });
         res.status(201).json({
             success: true,
             message: "User registered successfully",
-            user:{...newUser._doc},
+            user: { ...newUser._doc },
             accessToken,
         });
     } catch (error) {
@@ -53,11 +57,19 @@ async function handleLoginUser(req, res) {
         const { accessToken } = generateTokens("access", user);
 
         res.cookie("refreshToken", refreshToken, {
-            ...cookieOptions,
+            httpOnly: true,
+            secure: true, // cookie only sent over HTTPS (use false for localhost HTTP)
+            sameSite: "None", // allow cross-site cookies
+            domain: "https://easyjmp.onrender.com",
+            path: "/",
             maxAge: 30 * 24 * 60 * 60 * 1000,
         });
         res.cookie("accessToken", accessToken, {
-            ...cookieOptions,
+            httpOnly: true,
+            secure: true, // cookie only sent over HTTPS (use false for localhost HTTP)
+            sameSite: "None", // allow cross-site cookies
+            domain: "https://easyjmp.onrender.com",
+            path: "/",
             maxAge: 15 * 60 * 1000,
         });
 

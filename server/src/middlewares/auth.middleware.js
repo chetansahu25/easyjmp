@@ -1,35 +1,56 @@
-const jwt = require('jsonwebtoken');
-const { generateTokens } = require('../utils/generateToken');
-const cookieOptions = require('../utils/cookie-options');
-
+const jwt = require("jsonwebtoken");
+const { generateTokens } = require("../utils/generateToken");
+const cookieOptions = require("../utils/cookie-options");
 
 function authMiddleware(req, res, next) {
+    const token = req.cookies.accessToken;
+    const { refreshToken } = req.cookies;
 
-    const token  = req.cookies.accessToken; 
-    const { refreshToken } = req.cookies;   
-   
     if (!refreshToken) {
         return res.status(401).json({ message: "Unauthorized, Kindly Login" });
-    }      
+    }
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {        
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (err) {
             if (refreshToken) {
-                jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
-                    if (err) {
-                        console.log("Refresh token invalid or expired");
-                        return res.status(403).json({ message: "Not able to verify user, Login Again 2" });
-                    }
-                    const { accessToken } = generateTokens('access', decoded);
+                jwt.verify(
+                    refreshToken,
+                    process.env.REFRESH_TOKEN_SECRET,
+                    (err, decoded) => {
+                        if (err) {
+                            console.log("Refresh token invalid or expired");
+                            return res
+                                .status(403)
+                                .json({
+                                    message:
+                                        "Not able to verify user, Login Again 2",
+                                });
+                        }
+                        const { accessToken } = generateTokens(
+                            "access",
+                            decoded
+                        );
 
-                    req.userId = decoded._id;
-                    res.cookie("accessToken", accessToken, { ...cookieOptions,maxAge: 15 * 60 * 1000  }); // 15 minutes
-                });
-            }else {
-            return res.status(403).json({ message: "Not able to verify user, Login Again 1" });
-            }   
+                        req.userId = decoded._id;
+                        res.cookie("accessToken", accessToken, {
+                            httpOnly: true,
+                            secure: true, // cookie only sent over HTTPS (use false for localhost HTTP)
+                            sameSite: "None", // allow cross-site cookies
+                            domain: "https://easyjmp.onrender.com",
+                            path: "/",
+                            maxAge: 15 * 60 * 1000,
+                        }); // 15 minutes
+                    }
+                );
+            } else {
+                return res
+                    .status(403)
+                    .json({
+                        message: "Not able to verify user, Login Again 1",
+                    });
+            }
         }
-        
+
         req.userId = decoded;
         next();
     });
