@@ -16,16 +16,12 @@ async function handleRegisterUser(req, res) {
             httpOnly: true,
             secure: true, // cookie only sent over HTTPS (use false for localhost HTTP)
             sameSite: "None", // allow cross-site cookies
-            domain: "https://easyjmp.onrender.com",
-            path: "/",
             maxAge: 30 * 24 * 60 * 60 * 1000,
         });
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
             secure: true, // cookie only sent over HTTPS (use false for localhost HTTP)
             sameSite: "None", // allow cross-site cookies
-            domain: "https://easyjmp.onrender.com",
-            path: "/",
             maxAge: 15 * 60 * 1000,
         });
         res.status(201).json({
@@ -60,16 +56,12 @@ async function handleLoginUser(req, res) {
             httpOnly: true,
             secure: true, // cookie only sent over HTTPS (use false for localhost HTTP)
             sameSite: "None", // allow cross-site cookies
-            domain: "https://easyjmp.onrender.com",
-            path: "/",
             maxAge: 30 * 24 * 60 * 60 * 1000,
         });
         res.cookie("accessToken", accessToken, {
             httpOnly: true,
             secure: true, // cookie only sent over HTTPS (use false for localhost HTTP)
             sameSite: "None", // allow cross-site cookies
-            domain: "https://easyjmp.onrender.com",
-            path: "/",
             maxAge: 15 * 60 * 1000,
         });
 
